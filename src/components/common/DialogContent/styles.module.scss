@@ -1,0 +1,68 @@
+@import '~@/styles/variables';
+@import '~@/styles/mixins';
+
+.dialogContent {
+  max-width: 554px;
+  margin: 0 20px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.icon {
+  margin-bottom: 24px;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 25px;
+  //text-align: center;
+
+  @media screen and (min-width: $screen-sm) {
+    padding: 0 35px;
+  }
+}
+
+.buttons {
+  display: flex;
+  margin: 10px 0 20px 0;
+  padding: 0 20px;
+
+  //height: 60px;
+  //margin-top: 10px;
+  //margin-bottom: 0;
+}
+
+@mixin dialog-button() {
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.cancelButton {
+  @include button(#fff, #000);
+  @include dialog-button();
+
+  border: #d2d2d2 1px solid;
+}
+
+.confirmButton {
+  @include button(#2e3192, #fff);
+  @include dialog-button;
+}

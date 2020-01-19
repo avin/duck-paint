@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/cosmos-config",
+
+  "dom": {
+    "containerQuerySelector": "#root"
+  },
+  "webpack": {
+    "configPath": "webpack.config.js"
+  },
+  "staticPath": "public",
+  "globalImports": [
+    "./src/styles/index.scss",
+    "./src/styles/cosmos.scss",
+    "./src/cosmos.global.js"
+  ],
+  "watchDirs": ["./src"]
+}

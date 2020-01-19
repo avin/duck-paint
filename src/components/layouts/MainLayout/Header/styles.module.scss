@@ -1,0 +1,43 @@
+@import '~@/styles/variables';
+@import '~@/styles/mixins';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  background-color: $gray5;
+  border-bottom: 1px solid $gray3;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: bold;
+}
+
+.logoIcon {
+  $size: 20px;
+
+  width: $size;
+  height: $size;
+  margin-right: 10px;
+  color: $orange3;
+  animation: logoAnimation 2.5s ease-in-out alternate infinite;
+}
+
+@keyframes logoAnimation {
+  0% {
+    transform: rotateZ(-5deg) translateY(-2px);
+  }
+
+  50% {
+    transform: rotateZ(0deg) translateY(2px);
+  }
+
+  100% {
+    transform: rotateZ(15deg) translateY(-2px);
+  }
+}

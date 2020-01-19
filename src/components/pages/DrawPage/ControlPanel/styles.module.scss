@@ -1,0 +1,31 @@
+@import '~@/styles/variables';
+@import '~@/styles/mixins';
+
+$panelColor: $light-gray3;
+
+.controlPanel {
+  $width: 300px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  // Пока не используется - прячем
+  display: none;
+  width: $width;
+  padding: 10px;
+  background-color: $panelColor;
+  transform: translateX($width);
+  transition: transform 0.1s ease-in-out;
+
+  &.isOpen {
+    transform: translateX(0);
+  }
+}
+
+.openControl {
+  @include button-reset;
+
+  background-color: $panelColor;
+}

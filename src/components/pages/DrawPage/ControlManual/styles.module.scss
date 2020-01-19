@@ -1,0 +1,35 @@
+@import '~@/styles/variables';
+
+.container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  background-color: $light-gray5;
+  border-radius: 5px 0 0 0;
+  animation: appearance 0.5s linear;
+
+  :global(b) {
+    margin: 0 5px;
+  }
+}
+
+@keyframes appearance {
+  0% {
+    transform: translateX(-200px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  color: $blue3;
+}

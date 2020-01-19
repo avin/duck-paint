@@ -1,0 +1,75 @@
+.input {
+  position: absolute;
+  top: 3px;
+  bottom: 1px;
+  left: 0;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  padding: 5px;
+  color: #4e5156;
+  font-size: 1.05rem;
+  font-family: 'HeliosCond', Helvetica, Arial, sans-serif;
+  background-color: #fff;
+  border: #d2d2d2 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+}
+
+.label {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+
+  &::before {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 0;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    content: '';
+
+    .input:disabled + & {
+      background-color: #e6e3e1;
+    }
+
+    .input:checked + & {
+      color: #2c3a9b;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 18px;
+      text-align: center;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      animation: appear 0.1s linear;
+      content: '\2713';
+    }
+
+    .input:focus + & {
+      box-shadow: 0 0 0 2px rgba(#ff8a00, 0.4);
+    }
+
+    @keyframes appear {
+      from {
+        color: rgba(#2c3a9b, 0);
+      }
+
+      to {
+        color: rgba(#2c3a9b, 1);
+      }
+    }
+  }
+}
+
+.container {
+  display: inline-block;
+}

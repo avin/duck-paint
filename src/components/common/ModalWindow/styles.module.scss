@@ -1,0 +1,47 @@
+@import '~@/styles/variables';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.overlayWithBackdrop {
+  background-color: rgba(#000, 0.5);
+  animation: overlayBackdropAnimation 100ms;
+}
+
+@keyframes overlayBackdropAnimation {
+  from {
+    background-color: rgba(#000, 0);
+  }
+
+  to {
+    background-color: rgba(#000, 0.5);
+  }
+}
+
+.modalWindow {
+  overflow: hidden;
+  border-radius: 5px;
+  animation: modalWindowAppear 0.2s ease-out;
+}
+
+@keyframes modalWindowAppear {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,13 @@
+@import '~@/styles/variables';
+
+.mainLayout {
+  height: 100%;
+}
+
+.content {
+  height: calc(100% - #{$headerHeight});
+}
+
+.header {
+  height: $headerHeight;
+}
