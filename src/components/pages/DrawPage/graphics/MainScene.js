@@ -90,7 +90,6 @@ class MainScene {
     scene.actionManager = new BABYLON.ActionManager(scene);
     scene.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, e => {
-        // console.log(e.sourceEvent.code);
         this.activeKeys[e.sourceEvent.code] = true;
       }),
     );
