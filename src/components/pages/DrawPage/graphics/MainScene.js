@@ -1,6 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import merge from 'lodash/merge';
 import Brush from '@/components/pages/DrawPage/graphics/Brush';
+import { getUrlQueryParameterByName } from '@/utils/url';
 
 // Основная палитра, отсюда будем брать все цвета
 const colorPalette = [
@@ -65,7 +66,6 @@ class MainScene {
       meshIndex: 0,
       scale: [10, 10, 10],
       rotation: [0, -Math.PI, 0],
-      textureSize: window.isMobile ? 2000 : 4000,
       brushInitPointPosition: [-6.223477418636669, 4.193322954756397, 0.13768080415772133],
     },
   };
@@ -79,6 +79,20 @@ class MainScene {
   constructor(options) {
     // Подменяем текущий дефолт
     merge(this, options);
+
+    this.totalBrushes = Number(getUrlQueryParameterByName('count')) || 5;
+    this.totalBrushes = Math.max(0, this.totalBrushes) + 1;
+
+    this.lowGraphics = Number(getUrlQueryParameterByName('low')) || 0;
+
+    if (window.isMobile) {
+      this.lowGraphics = 1;
+    }
+
+    this.textureSize = Number(getUrlQueryParameterByName('size')) || 0;
+    if (!this.textureSize) {
+      this.textureSize = window.isMobile ? 2000 : 4000;
+    }
   }
 
   /**
@@ -125,7 +139,7 @@ class MainScene {
   async initMainMesh(meshId) {
     this.currentMeshOptions = this.mainMeshesCatalogue[meshId];
 
-    const { location, fileName, meshIndex, scale, rotation, textureSize } = this.currentMeshOptions;
+    const { location, fileName, meshIndex, scale, rotation } = this.currentMeshOptions;
 
     // Грузим модельку
     const { meshes } = await BABYLON.SceneLoader.ImportMeshAsync(
@@ -152,7 +166,7 @@ class MainScene {
     // Создаем текстуру на которой будем рисовать
     const drawTexture = new BABYLON.DynamicTexture(
       'paint-texture',
-      { width: textureSize, height: textureSize },
+      { width: this.textureSize, height: this.textureSize },
       this.scene,
     );
     this.meshDrawTexture = drawTexture;
@@ -161,7 +175,7 @@ class MainScene {
       // Заливаем текстуру почти белым цветом
       const context = drawTexture.getContext();
       context.fillStyle = 'hsl(0, 0%, 98%)';
-      context.fillRect(0, 0, textureSize, textureSize);
+      context.fillRect(0, 0, this.textureSize, this.textureSize);
       drawTexture.update(false);
     }
 
@@ -192,7 +206,7 @@ class MainScene {
     // ---------- Оптимизация ----------
 
     // Делаем дерево для ускорения просчета рейкаста
-    mainMesh.subdivide(64);
+    mainMesh.subdivide(128);
     mainMesh.createOrUpdateSubmeshesOctree();
 
     // Фризим матрицы (т.к фигура статична)
@@ -210,10 +224,8 @@ class MainScene {
    * @param color
    */
   drawPointRaw(pickInfo, color) {
-    const { textureSize } = this.currentMeshOptions;
-
-    const x = pickInfo.getTextureCoordinates().x * textureSize;
-    const y = pickInfo.getTextureCoordinates().y * textureSize;
+    const x = pickInfo.getTextureCoordinates().x * this.textureSize;
+    const y = pickInfo.getTextureCoordinates().y * this.textureSize;
 
     const dotSize = 16;
     const dotSizeN2 = dotSize * dotSize;
@@ -237,10 +249,8 @@ class MainScene {
    * @param color
    */
   drawPoint(pickInfo, color) {
-    const { textureSize } = this.currentMeshOptions;
-
-    const x = pickInfo.getTextureCoordinates().x * textureSize;
-    const y = pickInfo.getTextureCoordinates().y * textureSize;
+    const x = pickInfo.getTextureCoordinates().x * this.textureSize;
+    const y = pickInfo.getTextureCoordinates().y * this.textureSize;
 
     const ctx = this.meshDrawTexture.getContext();
 
@@ -249,7 +259,7 @@ class MainScene {
     }
 
     // Радиус (подгоняется под размер кисти)
-    const radius = this.currentMeshOptions.textureSize / 400;
+    const radius = this.textureSize / 400;
 
     ctx.fillStyle = color.colorString;
     ctx.beginPath();
@@ -332,35 +342,38 @@ class MainScene {
     );
     this.renderPipeline = pipeline;
 
-    pipeline.chromaticAberrationEnabled = true;
-    pipeline.chromaticAberration.aberrationAmount = 15.7;
-    pipeline.chromaticAberration.radialIntensity = 0.8;
+    if (!this.lowGraphics) {
+      pipeline.chromaticAberrationEnabled = true;
+      pipeline.chromaticAberration.aberrationAmount = 15.7;
+      pipeline.chromaticAberration.radialIntensity = 0.8;
 
-    pipeline.fxaaEnabled = true;
+      pipeline.fxaaEnabled = true;
 
-    pipeline.glowLayerEnabled = true;
-    pipeline.glowLayer.blurKernelSize = 16;
-    pipeline.glowLayer.intensity = 0.1;
+      pipeline.glowLayerEnabled = true;
+      pipeline.glowLayer.blurKernelSize = 16;
+      pipeline.glowLayer.intensity = 0.1;
 
-    pipeline.glowLayerEnabled = true;
+      pipeline.glowLayerEnabled = true;
 
-    pipeline.imageProcessingEnabled = true;
-    pipeline.imageProcessing.contrast = 1.1;
-    pipeline.imageProcessing.exposure = 1.1;
-    pipeline.imageProcessing.vignetteEnabled = true;
-    pipeline.imageProcessing.vignetteWeight = 0.1;
-    pipeline.imageProcessing.vignetteStretch = 0.1;
-    pipeline.imageProcessing.vignetteCameraFov = 0.3;
+      pipeline.imageProcessingEnabled = true;
+      pipeline.imageProcessing.contrast = 1.1;
+      pipeline.imageProcessing.exposure = 1.1;
 
-    pipeline.depthOfFieldEnabled = !window.isMobile;
-    pipeline.depthOfField.focalLength = 2735;
-    pipeline.depthOfField.fStop = 16.9;
-    pipeline.depthOfField.focusDistance = 7169;
-    pipeline.depthOfField.lensSize = 38;
+      pipeline.imageProcessing.vignetteEnabled = true;
+      pipeline.imageProcessing.vignetteWeight = 0.1;
+      pipeline.imageProcessing.vignetteStretch = 0.1;
+      pipeline.imageProcessing.vignetteCameraFov = 0.3;
 
-    pipeline.grainEnabled = true;
-    pipeline.grain.intensity = 2;
-    pipeline.grain.animated = false;
+      pipeline.depthOfFieldEnabled = true;
+      pipeline.depthOfField.focalLength = 2735;
+      pipeline.depthOfField.fStop = 16.9;
+      pipeline.depthOfField.focusDistance = 7169;
+      pipeline.depthOfField.lensSize = 38;
+
+      pipeline.grainEnabled = true;
+      pipeline.grain.intensity = 2;
+      pipeline.grain.animated = false;
+    }
   }
 
   async init() {
@@ -409,8 +422,13 @@ class MainScene {
       colorPalette[15],
     ];
     this.brushes = [];
-    const totalBrushes = 5;
-    for (let i = 0; i < totalBrushes; i += 1) {
+
+    const brushSrc = BABYLON.Mesh.CreateBox('brush', 0.5, scene);
+    // Морфим фигуру под нужные размеры
+    brushSrc.bakeTransformIntoVertices(BABYLON.Matrix.Translation(0, 0.25, 0));
+    brushSrc.bakeTransformIntoVertices(BABYLON.Matrix.Scaling(1, 0.5, 1));
+
+    for (let i = 0; i < this.totalBrushes; i += 1) {
       const colorHex = colors[i % colors.length];
       const color = BABYLON.Color3.FromHexString(colorHex);
 
@@ -420,15 +438,16 @@ class MainScene {
           index: i,
           withParticles: !window.isMobile,
           color,
-          angle: ((Math.PI * 2) / totalBrushes) * i,
+          angle: ((Math.PI * 2) / this.totalBrushes) * i,
+          brushSrc,
         }),
       );
     }
     this.brushes[0].isActive = true;
 
     // Для прикола! Если фигур много, ставим последней режим змеи
-    if (totalBrushes >= 5) {
-      this.brushes[totalBrushes - 1].snakeMode = true;
+    if (this.totalBrushes >= 5) {
+      this.brushes[this.totalBrushes - 1].snakeMode = true;
     }
 
     this.initControl();
@@ -494,7 +513,7 @@ class MainScene {
         if (this.driveCameraMode === 'CLASSIC') {
           this.scene.activeCamera = this.driveCamera;
           if (this.renderPipeline) {
-            this.renderPipeline.depthOfFieldEnabled = !window.isMobile;
+            this.renderPipeline.depthOfFieldEnabled = !this.lowGraphics;
           }
         } else if (this.driveCameraMode === 'ARC') {
           this.scene.activeCamera = this.driveArcCamera;

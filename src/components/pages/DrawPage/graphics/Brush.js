@@ -46,13 +46,16 @@ class Brush {
 
   init() {
     const {
+      id,
+      brushSrc,
       mainScene: {
         scene,
         currentMeshOptions: { brushInitPointPosition },
       },
     } = this;
 
-    const brush = BABYLON.Mesh.CreateBox('brush', 0.5, scene);
+    const brush = brushSrc.clone(`brush-${id}`);
+
     this.brush = brush;
 
     const brushMaterial = new BABYLON.StandardMaterial('brush-material', scene);
@@ -64,14 +67,10 @@ class Brush {
     // Кисти не учавствуют в рейкасте
     brush.isPickable = false;
 
-    // Морфим фигуру под нужные размеры
-    brush.bakeTransformIntoVertices(BABYLON.Matrix.Translation(0, 0.25, 0));
-    brush.bakeTransformIntoVertices(BABYLON.Matrix.Scaling(1, 0.5, 1));
-
     // Немного выделяем грани (чисто для декора)
-    brush.enableEdgesRendering();
-    brush.edgesWidth = 0.5;
-    brush.edgesColor = BABYLON.Color4.FromColor3(this.color.scale(0.5), 0.5);
+    // brush.enableEdgesRendering();
+    // brush.edgesWidth = 0.5;
+    // brush.edgesColor = BABYLON.Color4.FromColor3(this.color.scale(0.5), 0.5);
 
     // Определяем направляющие.
     // Направляющие содержат позицию и вращения которую должны приобрести
