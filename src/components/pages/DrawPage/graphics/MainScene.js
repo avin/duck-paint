@@ -60,7 +60,7 @@ class MainScene {
   mainMeshesCatalogue = {
     duck: {
       id: 'duck',
-      location: '/static/assets/scenes/',
+      location: 'static/assets/scenes/',
       fileName: 'duck.obj',
       meshIndex: 0,
       scale: [10, 10, 10],
