@@ -4,8 +4,8 @@ import cn from 'clsx';
 import styles from './styles.module.scss';
 
 const colors = {
-  red: '#f00',
-  gray: '#ddd',
+  red: '#d9822b',
+  gray: '#bfccd6',
 };
 
 // На базе http://stackoverflow.com/a/18473154/3124288

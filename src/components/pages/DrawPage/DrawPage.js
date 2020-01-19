@@ -8,7 +8,7 @@ import LoadingPage from '@/components/common/LoadingPage/LoadingPage';
 import MainScene from '@/components/pages/DrawPage/graphics/MainScene';
 import { useKeyPressHandler, useWindowFocus } from '@/utils/hooks';
 import MobileControlHelper from './MobileControlHelper/MobileControlHelper';
-import ControlManual from './ControlManual/ControlManual';
+import ControlHint from './ControlHint/ControlHint';
 
 const DrawPage = () => {
   const [isReady, setIsReady] = useState(false);
@@ -141,7 +141,7 @@ const DrawPage = () => {
         </div>
       )}
 
-      <ControlManual />
+      {!window.isMobile && <ControlHint />}
     </div>
   );
 };

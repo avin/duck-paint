@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 import { ReactComponent as HelpIcon } from './icons/question.svg';
 
-const ControlManual = () => {
+const ControlHint = () => {
   const mode = useSelector(state => state.uiSettings.mode);
 
   return (
@@ -25,6 +25,6 @@ const ControlManual = () => {
   );
 };
 
-ControlManual.protoTypes = {};
+ControlHint.protoTypes = {};
 
-export default ControlManual;
+export default ControlHint;

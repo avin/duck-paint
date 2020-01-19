@@ -32,6 +32,6 @@
 Передаю приветы и выражаю благодарности:
 
 - Компании ["КреоБитс"](https://www.dra.ru/) за организацию конкурса.
+- Разработчикам [Babylon.js](https://www.babylonjs.com/), а также [коммюнити](https://forum.babylonjs.com/) этой неимоверно крутой библиотеки :)
 - Telegram-сообществам [WebGL & Three.js](https://t.me/threejs_ru) и [GameDev for Web](https://t.me/gamedevforweb)
-- Разработчика [Babylon.js](https://www.babylonjs.com/), а также [коммюнити](https://forum.babylonjs.com/) этой неимоверно крутой библиотеки :)
 - [@eXponenta](https://github.com/eXponenta) за поддержку и обменом идей.
