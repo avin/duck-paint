@@ -1,6 +1,6 @@
 # Duck-Paint
 
-Игрушка по раскараске 3D уточки
+Игрушка по раскараске 3D уточки https://avin.github.io/duck-paint/
 
 ![preview](./additional/preview.jpg)
 
