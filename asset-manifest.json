@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "./static/css/main.e97882ef.chunk.css",
+    "main.js": "./static/js/main.320a4d12.chunk.js",
+    "main.js.map": "./static/js/main.320a4d12.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.b3eb5dfd.js",
+    "runtime-main.js.map": "./static/js/runtime-main.b3eb5dfd.js.map",
+    "static/js/2.45a1c903.chunk.js": "./static/js/2.45a1c903.chunk.js",
+    "static/js/2.45a1c903.chunk.js.map": "./static/js/2.45a1c903.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.84b78fa8b1536c0c7149e9f7143f7564.js": "./precache-manifest.84b78fa8b1536c0c7149e9f7143f7564.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.e97882ef.chunk.css.map": "./static/css/main.e97882ef.chunk.css.map",
+    "static/js/2.45a1c903.chunk.js.LICENSE": "./static/js/2.45a1c903.chunk.js.LICENSE",
+    "static/media/cog.210a8d8a.svg": "./static/media/cog.210a8d8a.svg",
+    "static/media/duck.be9786c2.svg": "./static/media/duck.be9786c2.svg",
+    "static/media/question.5eac3b27.svg": "./static/media/question.5eac3b27.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b3eb5dfd.js",
+    "static/js/2.45a1c903.chunk.js",
+    "static/css/main.e97882ef.chunk.css",
+    "static/js/main.320a4d12.chunk.js"
+  ]
+}
