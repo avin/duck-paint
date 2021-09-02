@@ -21,7 +21,7 @@
     "clsx": "^1.0.4",
     "cross-env": "^6.0.3",
     "customize-cra": "^0.9.1",
-    "immer": "^5.1.0",
+    "immer": "^9.0.6",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
